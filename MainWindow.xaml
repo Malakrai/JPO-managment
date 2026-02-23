@@ -1,0 +1,180 @@
+﻿<Window x:Class="JPO.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="JPO Manager" Height="600" Width="1000">
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        
+        <StackPanel Grid.Column="0" Margin="0,0,10,0">
+            <TextBlock Text="Création" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+
+            <!-- Ajout événement -->
+            <GroupBox Header="Ajouter un événement">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Titre" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="0" Grid.Column="1"
+                             Text="{Binding NewEventTitle, UpdateSourceTrigger=PropertyChanged}" Margin="6,0,0,6"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Date" VerticalAlignment="Center"/>
+                    <DatePicker Grid.Row="1" Grid.Column="1"
+                                SelectedDate="{Binding NewEventDate}" Margin="6,0,0,6"/>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Lieu" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="2" Grid.Column="1"
+                             Text="{Binding NewEventLocation, UpdateSourceTrigger=PropertyChanged}" Margin="6,0,0,6"/>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Desc." VerticalAlignment="Top"/>
+                    <TextBox Grid.Row="3" Grid.Column="1"
+                             Text="{Binding NewEventDescription, UpdateSourceTrigger=PropertyChanged}"
+                             AcceptsReturn="True" Height="70" Margin="6,0,0,6"/>
+
+                    <Button Grid.Row="4" Grid.Column="1"
+                            Content="Ajouter événement"
+                            Width="140"
+                            HorizontalAlignment="Left"
+                            Command="{Binding AddEventCommand}"/>
+                </Grid>
+            </GroupBox>
+
+            <!-- Ajout étudiant -->
+            <GroupBox Header="Ajouter un étudiant (sur l'événement sélectionné)" Margin="0,12,0,0">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Nom" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="0" Grid.Column="1"
+                             Text="{Binding NewStudentFullName, UpdateSourceTrigger=PropertyChanged}" Margin="6,0,0,6"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Filière" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="1" Grid.Column="1"
+                             Text="{Binding NewStudentTrack, UpdateSourceTrigger=PropertyChanged}" Margin="6,0,0,6"/>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Année" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="2" Grid.Column="1"
+                             Text="{Binding NewStudentStudyYear, UpdateSourceTrigger=PropertyChanged}"
+                             Width="120" Margin="6,0,0,6"/>
+
+                    <Button Grid.Row="3" Grid.Column="1"
+                            Content="Ajouter étudiant"
+                            Width="130"
+                            HorizontalAlignment="Left"
+                            Command="{Binding AddStudentCommand}"/>
+                </Grid>
+            </GroupBox>
+
+            <!-- Enregistrer -->
+            <Button Content="Enregistrer"
+                    Margin="0,12,0,0"
+                    Height="32"
+                    Command="{Binding SaveCommand}"/>
+        </StackPanel>
+
+        
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="170"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Consultation" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+
+            <!-- Liste des événements -->
+            <GroupBox Grid.Row="1" Header="Événements">
+                <ListBox Margin="10"
+                         ItemsSource="{Binding Events}"
+                         SelectedItem="{Binding SelectedEvent}"
+                         DisplayMemberPath="Title"/>
+            </GroupBox>
+
+            <!-- Détails event -->
+            <GroupBox Grid.Row="2" Header="Détails de l'événement" Margin="0,10,0,0">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Titre" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="0" Grid.Column="1"
+                             Text="{Binding SelectedEvent.Title, UpdateSourceTrigger=PropertyChanged}" Margin="6,0,0,6"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Date" VerticalAlignment="Center"/>
+                    <DatePicker Grid.Row="1" Grid.Column="1"
+                                SelectedDate="{Binding SelectedEvent.Date}" Margin="6,0,0,6"/>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Lieu" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="2" Grid.Column="1"
+                             Text="{Binding SelectedEvent.Location, UpdateSourceTrigger=PropertyChanged}" Margin="6,0,0,6"/>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Desc." VerticalAlignment="Top"/>
+                    <TextBox Grid.Row="3" Grid.Column="1"
+                             Text="{Binding SelectedEvent.Description, UpdateSourceTrigger=PropertyChanged}"
+                             AcceptsReturn="True" Height="60" Margin="6,0,0,0"/>
+                </Grid>
+            </GroupBox>
+
+            <!-- Participants -->
+            <GroupBox Grid.Row="3" Header="Étudiants participants" Margin="0,10,0,0">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <ListBox Grid.Row="0"
+                             ItemsSource="{Binding Students}"
+                             SelectedItem="{Binding SelectedStudent}"
+                             DisplayMemberPath="FullName"/>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,10,0,0">
+                        <Button Content="Supprimer étudiant sélectionné"
+                                Width="230"
+                                Command="{Binding DeleteStudentCommand}"/>
+
+                        <Button Content="Supprimer événement"
+                                Width="150"
+                                Margin="10,0,0,0"
+                                Command="{Binding DeleteEventCommand}"/>
+                    </StackPanel>
+                </Grid>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</Window>
